@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Pour Chahd 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+/* PAGE 1 */
+#page1 {
+  height: 100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+    url("images/nous2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: rgba(255,255,255,0.9);
+  padding: 35px;
+  border-radius: 25px;
+  text-align: center;
+  max-width: 420px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  color: #c2185b;
+  font-size: 26px;
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  padding: 14px 26px;
+  font-size: 16px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#yesBtn {
+  background: #e91e63;
+  color: white;
+  font-weight: bold;
+}
+
+#noBtn {
+  background: #eee;
+}
+
+/* PAGE 2 */
+#page2 {
+  display: none;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffb6c1, #ffe0ec);
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.gallery img {
+  width: 90%;
+  max-width: 420px;
+  border-radius: 20px;
+  margin-top: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.map-link {
+  display: inline-block;
+  margin-top: 25px;
+  background: #c2185b;
+  color: white;
+  padding: 14px 26px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Bouton Play Music */
+#playMusicBtn {
+  background: #e91e63;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+#playMusicBtn:hover {
+  background: #c2185b;
+}
+
+/* Animation cœurs */
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(50vh) translateX(20px) rotate(45deg);
+  }
+  100% {
+    transform: translateY(110vh) translateX(-20px) rotate(90deg);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1">
+  <div class="card">
+    <h1>
+      Chahd Saadaoui 💕<br>
+      Will you be my Valentine ?
+    </h1>
+
+    <div class="buttons">
+      <button id="yesBtn">YES 💖</button>
+      <button id="noBtn">NO 🙈</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2">
+  <h1>💌 Rendez-vous 💌</h1>
+
+  <p>
+    Le <strong>14 février à 19h</strong><br><br>
+    📍 InterContinental Paris Le Grand<br>
+    2 rue Scribe – 75009 Paris
+  </p>
+
+  <!-- Bouton Play Music -->
+  <button id="playMusicBtn">🎵 Play Music</button>
+  <audio id="romanticMusic" loop>
+    <source src="music/romantic.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="gallery">
+    <img src="images/hotel1.jpeg">
+    <img src="images/hotel2.jpeg">
+  </div>
+
+  <a class="map-link"
+     href="https://www.google.com/maps/search/?api=1&query=InterContinental+Paris+Le+Grand"
+     target="_blank">
+    📍 Ouvrir sur Google Maps
+  </a>
+</div>
+
+<script>
+let size = 1;
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const page1 = document.getElementById("page1");
+const page2 = document.getElementById("page2");
+const playMusicBtn = document.getElementById("playMusicBtn");
+const music = document.getElementById("romanticMusic");
+
+// Bouton NO qui fait grandir YES
+noBtn.onclick = () => {
+  size += 0.2;
+  yesBtn.style.transform = `scale(${size})`;
+};
+
+// Bouton YES qui passe à la page 2 et lance les cœurs
+yesBtn.onclick = () => {
+  page1.style.display = "none";
+  page2.style.display = "block";
+  startHearts();
+};
+
+// Lancer la musique au clic
+playMusicBtn.onclick = () => {
+  music.play();
+  playMusicBtn.style.display = "none";
+};
+
+// Animation cœurs
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.textContent = "💖";
+    heart.style.position = "fixed";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "-20px";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    heart.style.animation = `fall ${3 + Math.random()*2}s cubic-bezier(0.4,0,0.2,1)`; 
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }, 300);
+}
+</script>
+
+</body>
+</html>
